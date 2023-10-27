@@ -7,6 +7,7 @@ import authRouter from "./routes/auth.route.js";
 dotenv.config();
 
 import errorHandler from './middleware/error-handler.js'
+import customError from "./middleware/custom-error.js";
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -30,3 +31,4 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
 
 app.use(errorHandler);
+app.use(customError);

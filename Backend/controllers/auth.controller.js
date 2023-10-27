@@ -10,10 +10,9 @@ export const Signup = async (req, res, next) => {
     const token = user.createJWT();
 
     res
+      .cookie("access_token", token, { httpOnly: true })
       .status(201)
-      .send({ message: "Successfull", user: user, token })
-      .cookie("access_token", token, { httpOnly: true });
-
+      .send({ message: "Regiteration Successfull", token });
   } catch (error) {
     next(error);
     console.log(error);
