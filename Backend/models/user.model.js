@@ -37,6 +37,11 @@ userSchema.methods.createJWT = function(){
   });
 }
 
+userSchema.methods.comparePassword = async function(candidatePassword){
+  const isMatch = bcrypt.compare(candidatePassword,this.password);
+  return isMatch;
+}
+
 const User = mongoose.model("User", userSchema); // the name in model function given should be upper case and singular
 
 export default User;

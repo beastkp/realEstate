@@ -4,3 +4,5 @@ const customError = (statusCode, message) => {
   error.message = message;
   return error;
 };
+
+export default customError; 
