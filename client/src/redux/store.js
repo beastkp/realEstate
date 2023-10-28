@@ -11,7 +11,7 @@ const rootReducer = combineReducers({user:userReducer}) // we need to combine th
 
 const persistConfig = {
     key:'root',
-    storage,
+    storage, // this determines where the data will be saved, here it will be browser's local storage in react and asyncStorage in React-Native
     version:1,
 }
 const persistedReducer = persistReducer(persistConfig,rootReducer)
