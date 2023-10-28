@@ -9,10 +9,11 @@ export const Signup = async (req, res, next) => {
     const user = await User.create({ username, email, password });
     const token = user.createJWT();
 
+    const {password:pass,...rest} = usr._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(201)
-      .send({ message: "Regiteration Successfull", token });
+      .json(rest)
   } catch (error) {
     next(error);
     console.log(error);
@@ -35,10 +36,11 @@ export const Signin = async (req, res, next) => {
         .send({ message: "You are not authorized, wrong credentials " });
     }
     const token = user.createJWT();
+    const {password:pass,...rest} = user._doc
     res
       .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-      .send({ message: "Sign in Successfull", success: true, token });
+      .status(201)
+      .json(rest);
   } catch (error) {
     next(error);
   }
