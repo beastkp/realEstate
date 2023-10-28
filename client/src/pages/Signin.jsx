@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../redux/user/userSlice";
 
 const Signin = () => {
   const [formData, setformData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const {loading, error} = useSelector((state) => state.user);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setformData({
       ...formData,
@@ -16,25 +23,34 @@ const Signin = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
+    dispatch(signInStart());
     const res = await axios.post("/api/v1/auth/signin", formData, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (res.status === 201) {
-      setLoading(false);
+      // setLoading(false);
+      dispatch(signInSuccess(res.data)); // we need the data of the user in the payload for displying it on profile page
       navigate("/");
-      console.log(res);
+      console.log(res.data);
     } else {
-      setLoading(false);
+      // setLoading(false);
+      dispatch(signInFailure(res.message));
       console.log("Fill in the detais");
+      console.log(res)
+      return;
     }
   };
 
   return (
     <div className="mx-auto max-w-lg p-3 m-3">
-      <h1 className="text-3xl text-center font-bold">Sign in</h1>
+      {loading ? (
+        <h1 className="text-3xl text-center font-bold">Loading ...</h1>
+      ) : (
+        <h1 className="text-3xl text-center font-bold">Sign in</h1>
+      )}
       <form className="flex flex-col gap-4 p-3 m-3" onSubmit={handleSubmit}>
         <input
           type="email"
