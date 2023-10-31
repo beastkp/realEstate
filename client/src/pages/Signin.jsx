@@ -7,6 +7,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../redux/user/userSlice";
+import OAuth from "../Components/OAuth";
 
 const Signin = () => {
   const [formData, setformData] = useState({});
@@ -69,6 +70,7 @@ const Signin = () => {
         <button className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-60">
           Sign in
         </button>
+        <OAuth/>
       </form>
       <div className="flex gap-2 m-3 p-3">
         <p className="">Don't have an account?</p>

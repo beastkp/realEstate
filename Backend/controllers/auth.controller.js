@@ -9,11 +9,11 @@ export const Signup = async (req, res, next) => {
     const user = await User.create({ username, email, password });
     const token = user.createJWT();
 
-    const {password:pass,...rest} = usr._doc;
+    const { password: pass, ...rest } = user._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(201)
-      .json(rest)
+      .json(rest);
   } catch (error) {
     next(error);
     console.log(error);
@@ -36,11 +36,44 @@ export const Signin = async (req, res, next) => {
         .send({ message: "You are not authorized, wrong credentials " });
     }
     const token = user.createJWT();
-    const {password:pass,...rest} = user._doc
+    const { password: pass, ...rest } = user._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(201)
       .json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const google = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      // same as signin
+      const token = user.createJWT();
+      const { password: pass, ...rest } = user._doc;
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(201)
+        .json(rest);
+    } else {
+      // we have put the required password as true but when signing up with google you dont need passwrd, so we create a random password
+      const generatedPassword = Math.random().toString(36).slice(-8);
+      const createUser = await User.create({
+        username: req.body.name.split(" ").join("").toLowerCase(),
+        email: req.body.email,
+        password: generatedPassword,
+        avatar:req.body.photo
+      });
+      const token = createUser.createJWT();
+
+      const { password: pass, ...rest } = createUser._doc;
+      res
+        .cookie("access_token", token, { httpOnly: true })
+        .status(201)
+        .json(rest);
+    }
   } catch (error) {
     next(error);
   }
