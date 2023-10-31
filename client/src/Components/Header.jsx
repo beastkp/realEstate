@@ -4,9 +4,12 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineCloseCircle } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [toggle, setToggle] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <header className="bg-slate-300 h-[90px] flex justify-between mx-auto max-w-full items-center">
       <div className="p-2 m-1 fixed">
@@ -38,9 +41,14 @@ const Header = () => {
           <Link to="/about">About</Link>
         </li>
         <li className="hover:underline text-bold">
-          <Link to="/sign-in">Sign in </Link>
+          {currentUser ? (
+            <Link to="/profile">Profile</Link>
+          ) : (
+            <Link to="/sign-in">Sign-in</Link>
+          )}
         </li>
       </ul>
+
       <ul
         className={`md:hidden fixed duration-500 w-full h-screen top-24 text-white bg-black p-4 ${
           toggle ? "left-[0]" : "left-[-100%]"
@@ -59,6 +67,7 @@ const Header = () => {
           <Link to="/profile">Profile</Link>
         </li>
       </ul>
+
       <div>
         <div className=" md:flex justify-between gap-5 m-3 p-3 items-center hidden">
           <form
@@ -74,7 +83,14 @@ const Header = () => {
               <FaSearch className="bg-transparent focus:outline-none" />
             </span>
           </form>
-          <HiOutlineUserCircle className="md:text-4xl" />
+          {/* <HiOutlineUserCircle className="md:text-4xl" /> */}
+          <Link to='/profile'>
+            <img
+              src={currentUser.avatar}
+              alt=""
+              className="rounded-full h-9 w-9"
+            />
+          </Link>
         </div>
       </div>
     </header>

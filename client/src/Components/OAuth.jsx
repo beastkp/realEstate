@@ -12,7 +12,7 @@ const OAuth = () => {
   const handleGoogleClick = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      const auth = getAuth(app); // we give app to this function o that firebase recognises which application iis creating the request
+      const auth = getAuth(app); // we give app to this function so that firebase recognises which application is creating the request
 
       const result = await signInWithPopup(auth, provider);
 
