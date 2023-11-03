@@ -84,12 +84,17 @@ const Header = () => {
             </span>
           </form>
           {/* <HiOutlineUserCircle className="md:text-4xl" /> */}
-          <Link to='/profile'>
-            <img
-              src={currentUser.avatar}
-              alt=""
-              className="rounded-full h-9 w-9"
-            />
+          <Link to="/profile">
+            {currentUser.avatar ?
+            (
+              <img
+                src={currentUser.avatar}
+                alt=""
+                className="rounded-full h-9 w-9"
+              />
+            ) : (
+              <HiOutlineUserCircle className="md:text-4xl" />
+            )}
           </Link>
         </div>
       </div>
