@@ -1,9 +1,10 @@
 import express from 'express';
-
+import {user,updateUser} from '../controllers/user.controller.js'
+import verifyToken from '../middleware/verifyUser.js';
 const router = express.Router();
-// const {user} = require('../controllers/user.controller.js')
-import {user} from '../controllers/user.controller.js'
+
 
 router.route('/').get(user)
+router.route('/update/:id').patch(verifyToken, updateUser);
 
 export default router;
