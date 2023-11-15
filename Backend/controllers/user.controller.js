@@ -24,9 +24,22 @@ export const updateUser = async (req, res, next) => {
     }
 
     const { password: pass, ...rest } = updatedUser._doc;
-    res.status(200).json({ message: "User has been updated", user: rest });
+    res.status(200).json( rest );
   } catch (err) {
     console.log(err);
     next(error(401, "There was a error"));
   }
 };
+
+export const deleteUser = async (req,res,next)=>{
+  if(req.user.userId !== req.params.id){
+    return next(error(401,'You can only delete your own account'));
+  }
+  try {
+    const deleted = await User.findByIdAndDelete(req.params.id);
+    res.clearCookie('access_token')
+    res.status(200).json(deleted)
+  } catch (err) {
+    next(err);
+  }
+}

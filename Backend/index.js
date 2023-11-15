@@ -23,7 +23,14 @@ mongoose
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+  })
+);
 app.use(cookieParser()); // used to get information from the cookie
 
 app.listen(3000, () => {

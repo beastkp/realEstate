@@ -85,7 +85,7 @@ const Header = () => {
           </form>
           {/* <HiOutlineUserCircle className="md:text-4xl" /> */}
           <Link to="/profile">
-            {currentUser.avatar ?
+            {currentUser?.avatar ?
             (
               <img
                 src={currentUser.avatar}
