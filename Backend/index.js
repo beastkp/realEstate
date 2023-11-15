@@ -4,12 +4,12 @@ import dotenv from "dotenv";
 import cors from "cors";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import listingRouter from './routes/listing.route.js'
 import cookieParser from "cookie-parser";
 dotenv.config();
 
 import {error} from "./middleware/error-handler.js";
-import customError from "./middleware/custom-error.js";
-// import verifyToken from "./middleware/verifyUser.js";
+
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -39,6 +39,7 @@ app.listen(3000, () => {
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/listing", listingRouter);
 
 app.use(error);
 // app.use(customError);
