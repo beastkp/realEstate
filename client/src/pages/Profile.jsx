@@ -69,6 +69,13 @@ const Profile = () => {
     );
   };
 
+  const handleSignout = async()=>{
+    const res = await axios.get('http://localhost:3000/api/v1/auth/sign-out');
+    if(res.status === 200){
+      Navigate('/sign-in')
+    }
+    console.log(res);
+  }
   const handleDelete = async () => {
     try {
       dispatch(deleteUserStart());
@@ -78,7 +85,7 @@ const Profile = () => {
           withCredentials: true,
         }
       );
-      console.log(res);
+      // console.log(res);
       if(res.status === 200){
         dispatch(deleteUserSuccess());
         Navigate('/sign-up')
@@ -187,7 +194,7 @@ const Profile = () => {
         <span className="text-red-700 cursor-pointer" onClick={handleDelete}>
           Delete Account
         </span>
-        <span className="text-red-700 cursor-pointer">Sign out</span>
+        <span className="text-red-700 cursor-pointer" onClick={handleSignout}>Sign out</span>
       </div>
       {error ? (
         <p className="text-red-500 mt-2">`${error}`</p>
