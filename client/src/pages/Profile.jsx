@@ -17,7 +17,7 @@ import {
   deleteUserSuccess,
 } from "../redux/user/userSlice";
 import axios from "axios";
-import {useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 
 // things to change in firebase rules for storage
 //allow read;
@@ -69,13 +69,13 @@ const Profile = () => {
     );
   };
 
-  const handleSignout = async()=>{
-    const res = await axios.get('http://localhost:3000/api/v1/auth/sign-out');
-    if(res.status === 200){
-      Navigate('/sign-in')
+  const handleSignout = async () => {
+    const res = await axios.get("http://localhost:3000/api/v1/auth/sign-out");
+    if (res.status === 200) {
+      Navigate("/sign-in");
     }
     console.log(res);
-  }
+  };
   const handleDelete = async () => {
     try {
       dispatch(deleteUserStart());
@@ -86,15 +86,12 @@ const Profile = () => {
         }
       );
       // console.log(res);
-      if(res.status === 200){
+      if (res.status === 200) {
         dispatch(deleteUserSuccess());
-        Navigate('/sign-up')
-      }
-      else{
-
+        Navigate("/sign-up");
+      } else {
         dispatch(deleteUserFailure("Cannot delete user"));
       }
-
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
     }
@@ -189,12 +186,20 @@ const Profile = () => {
         <button className="bg-slate-700 p-3 rounded-lg text-white uppercase hover:opacity-75">
           Update
         </button>
+        <Link
+          to="/createListing"
+          className="bg-green-700 p-3 rounded-lg text-white uppercase hover:opacity-75 text-center"
+        >
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span className="text-red-700 cursor-pointer" onClick={handleDelete}>
           Delete Account
         </span>
-        <span className="text-red-700 cursor-pointer" onClick={handleSignout}>Sign out</span>
+        <span className="text-red-700 cursor-pointer" onClick={handleSignout}>
+          Sign out
+        </span>
       </div>
       {error ? (
         <p className="text-red-500 mt-2">`${error}`</p>
