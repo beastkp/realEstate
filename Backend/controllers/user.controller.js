@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 import { error } from "../middleware/error-handler.js";
+import Listing from '../models/listing.model.js'
 
 export const user = (req, res) => {
   res.json({ message: "This is the controller" });
@@ -41,5 +42,19 @@ export const deleteUser = async (req,res,next)=>{
     res.status(200).json(deleted)
   } catch (err) {
     next(err);
+  }
+}
+
+export const getUserListings = async(req,res,next)=>{
+  console.log("I am here");
+  if(req.user.userId === req.params.id){
+    try {
+      const listings = await Listing.find({userRef:req.params.id})
+      res.status(200).json(listings);
+    } catch (error) {
+      next(error)
+    }
+  }else{
+    return next(error(401,'You can only view your own listings'));
   }
 }

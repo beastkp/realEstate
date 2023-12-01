@@ -42,4 +42,3 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/listing", listingRouter);
 
 app.use(error);
-// app.use(customError);
