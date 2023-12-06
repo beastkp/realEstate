@@ -128,7 +128,7 @@ const UpdateListing = () => {
       );
       if (res.status === 200) {
         setLoading(false);
-        navigate(`/listing/${res.data.data._id}`);
+        navigate(`/listing/${res.data._id}`);
       } else {
         setError(res.message);
         console.log("There was an error");
