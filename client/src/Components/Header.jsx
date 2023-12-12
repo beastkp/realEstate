@@ -1,15 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.jpg";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
 const Header = () => {
+  const Navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search); // inbuilt javascript class for accessing the query parameters in the url, window .location.search is used to access the part of the url after the ?
+    urlParams.set('searchTerm',searchTerm);
+    const searchQuery = urlParams.toString();
+    Navigate(`/search?${searchQuery}`)
+  }
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTermFromUrl  = urlParams.get('searchTerm'); // onsubmit we set the urlparams to searchterm now we are getting it
+    if(searchTermFromUrl){
+      setSearchTerm(searchTermFromUrl);
+    }
+
+  },[location.search])
   return (
     <header className="bg-slate-300 h-[90px] flex justify-between mx-auto max-w-full items-center">
       <div className="p-2 m-1 fixed">
@@ -73,20 +90,23 @@ const Header = () => {
           <form
             action=""
             className="bg-slate-100 rounded-xl flex items-center "
+            onSubmit={handleSubmit}
           >
             <input
               type="text"
               placeholder="Search..."
               className=" border-black p-2 bg-transparent"
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <span className="p-2">
-              <FaSearch className="bg-transparent focus:outline-none" />
+              <button>
+                <FaSearch className="bg-transparent focus:outline-none" />
+              </button>
             </span>
           </form>
           {/* <HiOutlineUserCircle className="md:text-4xl" /> */}
           <Link to="/profile">
-            {currentUser?.avatar ?
-            (
+            {currentUser?.avatar ? (
               <img
                 src={currentUser.avatar}
                 alt=""
