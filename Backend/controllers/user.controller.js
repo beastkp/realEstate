@@ -46,7 +46,6 @@ export const deleteUser = async (req,res,next)=>{
 }
 
 export const getUserListings = async(req,res,next)=>{
-  console.log("I am here");
   if(req.user.userId === req.params.id){
     try {
       const listings = await Listing.find({userRef:req.params.id})
@@ -61,7 +60,6 @@ export const getUserListings = async(req,res,next)=>{
 
 export const getUser = async(req,res,next)=>{
   try {
-    console.log("Hi this is get user");
     const user = await User.findById(req.params.id);
     console.log(user);
      if(!user){
