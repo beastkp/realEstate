@@ -21,7 +21,7 @@ const CreateListing = () => {
     name: "",
     description: "",
     address: "",
-    type: "rent",
+    type: "",
     bedrooms: 1,
     bathrooms: 1,
     regularPrice: 50,
@@ -127,8 +127,8 @@ const CreateListing = () => {
     }
   }
   const handleChange = (e) => {
-    if (e.target.id === "sale" || e.target.value === "rent") {
-      setFormdata({ ...formdata, type: e.target.value });
+    if (e.target.id === "sale" || e.target.id === "rent") {
+      setFormdata({ ...formdata, type: e.target.id });
     } // because we want only 1 to be checked sale or  rent and not both
     if (
       e.target.id === "parking" ||
@@ -187,12 +187,12 @@ const CreateListing = () => {
                 onChange={handleChange}
                 checked={formdata.type === "sale"}
               />
-              <span>Sell</span>
+              <span>Sale</span>
             </div>
             <div className="flex gap-2">
               <input
                 type="checkbox"
-                id="sale"
+                id="rent"
                 className="w-5"
                 onChange={handleChange}
                 checked={formdata.type === "rent"}
