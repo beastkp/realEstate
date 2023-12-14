@@ -17,10 +17,11 @@ const Header = () => {
     const urlParams = new URLSearchParams(window.location.search); // inbuilt javascript class for accessing the query parameters in the url, window .location.search is used to access the part of the url after the ?
     urlParams.set('searchTerm',searchTerm);
     const searchQuery = urlParams.toString();
-    Navigate(`/search?${searchQuery}`)
+    Navigate(`/search?${searchQuery}`);
+
   }
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl  = urlParams.get('searchTerm'); // onsubmit we set the urlparams to searchterm now we are getting it
     if(searchTermFromUrl){
       setSearchTerm(searchTermFromUrl);
@@ -28,21 +29,21 @@ const Header = () => {
 
   },[location.search])
   return (
-    <header className="bg-slate-300 h-[90px] flex justify-between mx-auto max-w-full items-center">
-      <div className="p-2 m-1 fixed">
+    <header className="bg-slate-300 h-[90px] flex justify-between mx-auto max-w-full items-center ">
+      <div className="p-2">
         <Link to="/">
-          <img src={logo} alt="" className="h-[70px]" />
+          <img src={logo} alt="" className="h-[70px] " />
         </Link>
       </div>
       {toggle ? (
-        <div className="ml-96">
+        <div className="mr-3" >
           <AiOutlineCloseCircle
             onClick={() => setToggle(!toggle)}
             className="text-slate-800 block md:hidden text-3xl "
           />
         </div>
       ) : (
-        <div className="ml-96">
+        <div className="mr-3">
           <AiOutlineMenu
             onClick={() => setToggle(!toggle)}
             className="text-slate-800 block md:hidden text-3xl"
@@ -50,14 +51,14 @@ const Header = () => {
         </div>
       )}
 
-      <ul className="md:flex hidden gap-10 p-7 text-slate-700">
-        <li className="hover:underline text-bold">
+      <ul className="md:flex hidden gap-5 text-slate-700">
+        <li className="hover:underline text-bold p-3">
           <Link to="/">Home</Link>
         </li>
-        <li className="hover:underline text-bold">
+        <li className="hover:underline text-bold p-3">
           <Link to="/about">About</Link>
         </li>
-        <li className="hover:underline text-bold">
+        <li className="hover:underline text-bold p-3">
           {currentUser ? (
             <Link to="/profile">Profile</Link>
           ) : (
@@ -85,7 +86,7 @@ const Header = () => {
         </li>
       </ul>
 
-      <div>
+   
         <div className=" md:flex justify-between gap-5 m-3 p-3 items-center hidden">
           <form
             action=""
@@ -96,6 +97,7 @@ const Header = () => {
               type="text"
               placeholder="Search..."
               className=" border-black p-2 bg-transparent"
+              default value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <span className="p-2">
@@ -117,7 +119,6 @@ const Header = () => {
             )}
           </Link>
         </div>
-      </div>
     </header>
   );
 };
