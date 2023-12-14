@@ -92,7 +92,7 @@ export const getListings = async (req, res, next) => {
     const searchTerm = req.query.searchTerm || "";
     const sort = req.query.sort || "createdAt"; // any property can be sorted, if nothing is mentioned then sort by createdAt
     const order = req.query.order || "desc";
-    console.log(type);
+    // console.log(type);
     const listings = await Listing.find(
         {
       name: { $regex: searchTerm, $options: "i" }, // find anything that matches searchTerm and options i means case insensitive
