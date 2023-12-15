@@ -31,7 +31,7 @@ This is a real estate Buying, renting and selling application made using MERN st
 | `/google` | `POST` | Firebase Integrated OAuth|
 |`sign-out` | `GET` | Signout of your account | 
 
-#### Get item
+#### User
 
 ```http
 /api/v1/user
@@ -45,6 +45,7 @@ This is a real estate Buying, renting and selling application made using MERN st
 |`/${id}` | `GET` | Get User Information
 
 
+### Listing
 ```http
 /api/v1/listing
 ```
