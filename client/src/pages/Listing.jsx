@@ -30,7 +30,7 @@ const Listing = () => {
         const fetchListing = async ()=>{
             try {
                 const listingId = params.listingId
-                const res = await axios.get(`http://localhost:3000/api/v1/listing/get/${listingId}`)
+                const res = await axios.get(`/api/v1/listing/get/${listingId}`)
                 if(res.status === 200){
                 setLoading(false);
                   setListing(res.data);

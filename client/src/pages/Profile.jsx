@@ -72,7 +72,7 @@ const Profile = () => {
   };
 
   const handleSignout = async () => {
-    const res = await axios.get("http://localhost:3000/api/v1/auth/sign-out");
+    const res = await axios.get("/api/v1/auth/sign-out");
     if (res.status === 200) {
       Navigate("/sign-in");
     }
@@ -82,7 +82,7 @@ const Profile = () => {
     try {
       dispatch(deleteUserStart());
       const res = await axios.delete(
-        `http://localhost:3000/api/v1/user/delete/${currentUser._id}`,
+        `/api/v1/user/delete/${currentUser._id}`,
         {
           withCredentials: true,
         }
@@ -107,7 +107,7 @@ const Profile = () => {
     try {
       dispatch(updateUserStart());
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/user/update/${currentUser._id}`,
+        `/api/v1/user/update/${currentUser._id}`,
         formData,
         {
           headers: {
@@ -130,7 +130,7 @@ const Profile = () => {
   const handleShowListings = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/user/listings/${currentUser._id}`,
+        `/api/v1/user/listings/${currentUser._id}`,
         {
           withCredentials: true,
         }
@@ -149,7 +149,7 @@ const Profile = () => {
   const handleDeleteListing = async (listingId) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/v1/listing/delete/${listingId}`,
+        `/api/v1/listing/delete/${listingId}`,
         {
           withCredentials: true,
         }
