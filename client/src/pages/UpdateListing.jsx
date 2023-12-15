@@ -36,7 +36,7 @@ const UpdateListing = () => {
   useEffect(()=>{
     const fetchListing = async ()=>{
         const listingId = params.listingId;
-        const res = await axios.get(`http://localhost:3000/api/v1/listing/get/${listingId}`)
+        const res = await axios.get(`/api/v1/listing/get/${listingId}`)
         if(res.status === 200){
           setFormdata(res.data);
           return 
@@ -117,7 +117,7 @@ const UpdateListing = () => {
       setLoading(true);
       setError(false);
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/listing/update/${params.listingId}`,
+        `/api/v1/listing/update/${params.listingId}`,
         { ...formdata, userRef: currentUser._id },
         {
           headers: {

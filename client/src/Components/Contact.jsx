@@ -10,7 +10,7 @@ const Contact = ({ listing }) => {
     const fetchLandlord = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/v1/user/${listing.userRef}`
+          `/api/v1/user/${listing.userRef}`
         );
         console.log(res)
         if (res.status === 200) {
