@@ -121,7 +121,7 @@ const Search = () => {
     Navigate(`/search?${searchQuery}`);
   };
   const onShowMoreClick = async () => {
-    const numberOfListings = listings.length;
+    const numberOfListings = listing.length;
     const startIndex = numberOfListings;
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("startIndex", startIndex);
